@@ -1,11 +1,12 @@
 #!/usr/bin/python
 import endpoints
+import re
 
-ENDPOINTS_START = "// **BEGIN ENDPOINT INSERTION**"
-ENDPOINTS_END = "// **END ENDPOINT INSERTION**"
+ENDPOINTS_START = r"// BEGIN ENDPOINT INSERTION"
+ENDPOINTS_END = "// END ENDPOINT INSERTION"
 
 def updateJSAPI():
-	with open("intuitive.js", "r+") as f:
+	with open("intuitive.js", "r") as f:
 		fileText = f.read()
 
 	endpointsText = ENDPOINTS_START + "\n"
@@ -14,9 +15,10 @@ def updateJSAPI():
 		endpointsText += """\t\t{"name": "%s", "argsKey": [%s]},\n""" % (endpoint[0], ",".join(['"%s"' % i for i in endpoint[1]]))
 
 	endpointsText += "\t\t" + ENDPOINTS_END
-	fileText = fileText.replace(ENDPOINTS_START + "\n\n\t\t" + ENDPOINTS_END, endpointsText)
+	fileText = re.sub(ENDPOINTS_START + r".*?" + ENDPOINTS_END, endpointsText, fileText,flags=re.DOTALL)
 
-	print fileText
+	with open("intuitive.js", "w") as f:
+		f.write(fileText)
 
 if __name__ == "__main__":
 	updateJSAPI()

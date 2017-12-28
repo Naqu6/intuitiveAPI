@@ -29,11 +29,12 @@ function contact(data) {
 
 
 function generateFunctions() {
-	var apiEndpoints = {
-		// **BEGIN ENDPOINT INSERTION**
-
-		// **END ENDPOINT INSERTION**
-	};
+	var apiEndpoints = [
+		// BEGIN ENDPOINT INSERTION
+		{"name": "endpoint", "argsKey": ["userId","password"]},
+		{"name": "endpoint2", "argsKey": ["userId","password"]},
+		// END ENDPOINT INSERTION
+	];
 
 	apiEndpoints.forEach((endpoint, _) => {
 		api[endpoint.name] = () => {

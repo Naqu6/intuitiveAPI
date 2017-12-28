@@ -10,4 +10,5 @@
 endpoints = [
 	#Format: ("name", ("each", "of", "the", "arguments")),
 	("endpoint", ("userId", "password")),
+	("endpoint2", ("userId", "password")),
 ]
